@@ -231,7 +231,7 @@ export default function PatrimonioTable() {
       </div>
 
       {/* Hint */}
-      <p className="mb-2 text-base text-slate-500">
+      <p className="mb-2 text-lg text-slate-500">
         Clique no número de patrimônio para editar o item.
       </p>
 
