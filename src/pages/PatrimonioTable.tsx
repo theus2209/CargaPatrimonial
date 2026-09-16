@@ -3,7 +3,7 @@ import { patrimonioData } from "@/constants/data";
 import { PatrimonioItem } from "@/types/patrimonio";
 import { Search, Download, FileSpreadsheet, ArrowUp01, ArrowUpAZ, Plus, Trash2, X, Save, Pencil } from "lucide-react";
 
-const EMPTY_FORM: PatrimonioItem = { patrimonio: "", tipo: "Proprio", placaSerie: "", cod: "", material: "" };
+const EMPTY_FORM: PatrimonioItem = { patrimonio: "", placaSerie: "", cod: "", material: "", localEquipamento: "" };
 
 export default function PatrimonioTable() {
   const [items, setItems] = useState<PatrimonioItem[]>(patrimonioData);
@@ -124,10 +124,10 @@ export default function PatrimonioTable() {
 
   const columns = [
     { key: "patrimonio", label: "PATRIMÔNIO", width: "w-[130px]" },
-    { key: "tipo", label: "TIPO", width: "w-[90px]" },
     { key: "placaSerie", label: "PLACA/SÉRIE", width: "w-[110px]" },
     { key: "cod", label: "COD", width: "w-[110px]" },
     { key: "material", label: "MATERIAL", width: "" },
+    { key: "localEquipamento", label: "LOCAL DO EQUIPAMENTO", width: "w-[180px]" },
     { key: "acoes", label: "", width: "w-[60px]" },
   ];
 
@@ -284,9 +284,6 @@ export default function PatrimonioTable() {
                         <Pencil className="w-3 h-3 opacity-0 group-hover:opacity-60 transition-opacity" />
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-300 whitespace-nowrap">
-                      {item.tipo}
-                    </td>
                     <td className="px-4 py-3 text-yellow-400 font-semibold whitespace-nowrap">
                       {item.placaSerie || (
                         <span className="text-slate-600">—</span>
@@ -297,6 +294,9 @@ export default function PatrimonioTable() {
                     </td>
                     <td className="px-4 py-3 text-slate-200 leading-snug max-w-[400px]">
                       {item.material}
+                    </td>
+                    <td className="px-4 py-3 text-slate-300 whitespace-nowrap">
+                      {item.localEquipamento || <span className="text-slate-600">—</span>}
                     </td>
                     <td className="px-2 py-3 text-center" onClick={(e) => e.stopPropagation()}>
                       <button
@@ -353,34 +353,17 @@ export default function PatrimonioTable() {
             </div>
             {/* Modal Body */}
             <div className="px-6 py-5 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Patrimônio <span className="text-red-400">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={form.patrimonio}
-                    onChange={(e) => handleFormChange("patrimonio", e.target.value)}
-                    placeholder="Ex: 1234567-8"
-                    className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Tipo
-                  </label>
-                  <select
-                    value={form.tipo}
-                    onChange={(e) => handleFormChange("tipo", e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="Proprio">Proprio</option>
-                    <option value="Cessao">Cessao</option>
-                    <option value="Locacao">Locacao</option>
-                    <option value="Comodato">Comodato</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                  Patrimônio <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={form.patrimonio}
+                  onChange={(e) => handleFormChange("patrimonio", e.target.value)}
+                  placeholder="Ex: 1234567-8"
+                  className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -418,6 +401,18 @@ export default function PatrimonioTable() {
                   placeholder="Descrição completa do material..."
                   rows={3}
                   className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                  Local do Equipamento
+                </label>
+                <input
+                  type="text"
+                  value={form.localEquipamento}
+                  onChange={(e) => handleFormChange("localEquipamento", e.target.value)}
+                  placeholder="Ex: Sala de Comando"
+                  className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <p className="text-xs text-slate-500">* Campos obrigatórios</p>
