@@ -127,7 +127,7 @@ export default function PatrimonioTable() {
     { key: "cod", label: "COD", width: "w-[110px]" },
     { key: "material", label: "MATERIAL", width: "" },
     { key: "localEquipamento", label: "LOCAL DO EQUIPAMENTO", width: "w-[180px]" },
-    { key: "acoes", label: "", width: "w-[60px]" },
+    { key: "acoes", label: "", width: "w-[80px]" },
   ];
 
   const SortIcon = ({ col }: { col: string }) => {
@@ -298,21 +298,30 @@ export default function PatrimonioTable() {
                       {item.localEquipamento || <span className="text-slate-600">—</span>}
                     </td>
                     <td className="px-2 py-3 text-center" onClick={(e) => e.stopPropagation()}>
-                      <button
-                        onClick={() => handleDelete(item.patrimonio)}
-                        title={
-                          deleteConfirm === item.patrimonio
-                            ? "Clique novamente para confirmar"
-                            : "Excluir item"
-                        }
-                        className={`p-1.5 rounded transition-colors ${
-                          deleteConfirm === item.patrimonio
-                            ? "bg-red-600 text-white animate-pulse"
-                            : "text-slate-500 hover:text-red-400 hover:bg-slate-700"
-                        }`}
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center justify-center gap-1">
+                        <button
+                          onClick={() => openEditModal(item)}
+                          title="Editar item"
+                          className="p-1.5 rounded text-slate-500 hover:text-yellow-400 hover:bg-slate-700 transition-colors"
+                        >
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(item.patrimonio)}
+                          title={
+                            deleteConfirm === item.patrimonio
+                              ? "Clique novamente para confirmar"
+                              : "Excluir item"
+                          }
+                          className={`p-1.5 rounded transition-colors ${
+                            deleteConfirm === item.patrimonio
+                              ? "bg-red-600 text-white animate-pulse"
+                              : "text-slate-500 hover:text-red-400 hover:bg-slate-700"
+                          }`}
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
