@@ -22,7 +22,6 @@ export default function PatrimonioTable() {
     return items.filter(
       (item) =>
         item.patrimonio.toLowerCase().includes(q) ||
-        item.tipo.toLowerCase().includes(q) ||
         item.placaSerie.toLowerCase().includes(q) ||
         item.cod.toLowerCase().includes(q) ||
         item.material.toLowerCase().includes(q)
@@ -100,14 +99,14 @@ export default function PatrimonioTable() {
   };
 
   const exportCSV = () => {
-    const headers = ["PATRIMONIO", "TIPO", "PLACA/SERIE", "COD", "MATERIAL"];
+    const headers = ["PATRIMONIO", "PLACA/SERIE", "COD", "MATERIAL", "LOCAL DO EQUIPAMENTO"];
     const rows = sorted.map((item: PatrimonioItem) =>
       [
         item.patrimonio,
-        item.tipo,
         item.placaSerie,
         item.cod,
         `"${item.material.replace(/"/g, '""')}"`,
+        `"${(item.localEquipamento || "").replace(/"/g, '""')}"`,
       ].join(";")
     );
     const csvContent = [headers.join(";"), ...rows].join("\n");
